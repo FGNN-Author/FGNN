@@ -1,0 +1,11 @@
+#!/bin/sh
+#SBATCH -J unet-8-f
+#SBATCH --gres=gpu:rtx2080ti:1
+# #SBATCH --mail-type=ALL --mail-user=carroloi@tcd.ie
+
+python2 udocker/udocker run --volume=/home/oisin/dissert:/dissert \
+    --env="CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES" \
+    ml-2 bash -c \
+    "source ~/.bashrc; \
+    cd dissert/Unet/; \
+    python3 train_test.py 8 fast"
